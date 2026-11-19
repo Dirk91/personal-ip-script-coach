@@ -50,6 +50,13 @@ Do not silently enter an interview or produce a complete rewrite.
 
 Use when the user wants to say the missing content themselves. Diagnose first, then follow `references/interview-playbook.md`. Every turn must acknowledge the useful material briefly and ask no more than one question. Let each answer change the next question.
 
+Hard output invariant for every guided turn:
+
+- the whole reply contains at most one question mark in total, counting both `?` and `？`;
+- diagnosis and explanation are declarative, with no rhetorical questions;
+- the final question requests exactly one answerable fact, not a bundle of sub-questions or alternatives;
+- a compound prompt is still multiple questions even when written as one sentence. Keep only the single highest-priority information request before sending.
+
 ### 生成完整版
 
 Use when the material is ready or the user explicitly requests a full version. Assemble the script from confirmed material and preserve distinctive original wording. If important material is still missing but the user wants a draft now, provide a provisional version and list the gaps; never invent facts to hide them.

@@ -8,7 +8,25 @@ Use this playbook only after `SKILL.md` selects 逐步共创, or when 生成完�
 
 1. 一到两句话确认本轮真正挖到的内容；
 2. when useful, one short note about where it belongs in the script;
-3. one next question, and no second question hidden in a list or parenthesis.
+3. one atomic next question, and no second question hidden in a list, parenthesis, example, or alternative.
+
+Before sending, apply this mechanical check:
+
+1. Count `?` and `？` across the whole reply: the combined total must be at most one.
+2. Keep every diagnosis, gap description, and transition declarative. Only the final sentence may be interrogative.
+3. The final question must request one answerable fact. Do not combine “谁、什么时候、在哪里、做了什么、结果如何” in one turn.
+4. Do not disguise a questionnaire as one sentence with “还是”, “或者”, “比如 A、B、C”, commas, or multiple clauses.
+5. If the draft question asks for more than one information slot, keep only the highest-priority slot and save the rest for later turns.
+
+Bad:
+
+> 具体是谁？他当时在做什么、发了多少条、结果是什么？
+
+> 返工发生在哪个环节？是脚本、选题还是成片？
+
+Good:
+
+> 你第一次看到他返工，是在哪一个环节？
 
 If the user replies `1`, `继续`, `可以`, or an equivalent short confirmation, treat it as consent to进入下一步. Do not ask them to repeat the confirmation in a fuller sentence.
 
@@ -58,7 +76,7 @@ Useful prompt shape:
 
 > 不用组织成文案，就按你平时说话的方式讲：当时具体发生了什么？
 
-Avoid bundled prompts such as “who was it, when was it, how did you feel, and what happened next?” Pick the one missing detail that matters most.
+Avoid bundled prompts such as “who was it, when was it, how did you feel, and what happened next?” Pick the one missing detail that matters most. A list of alternatives also counts as multiple answer slots even if it ends with only one question mark.
 
 ## Decide whether to follow up
 

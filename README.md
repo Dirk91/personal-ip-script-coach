@@ -78,17 +78,19 @@ Codex 会从 [SKILL.md](SKILL.md) 和 [OpenAI 元数据](agents/openai.yaml) 进
 
 ### WorkBuddy
 
-把整个仓库作为文件夹或压缩包上传到 WorkBuddy，并要求它先读取 [PROMPT.md](PROMPT.md)。如果当前版本不能跟随文件链接，复制 `PROMPT.md` 的“Concise fallback”段落到对话中，再粘贴你的稿件或素材。
+实测可把整个仓库压缩包上传到 WorkBuddy。上传后要求它先解压并读取 [PROMPT.md](PROMPT.md)，再进入 [SKILL.md](SKILL.md)。如果当前版本不能跟随文件链接，复制 `PROMPT.md` 的“Concise fallback”段落到对话中，再粘贴你的稿件或素材。
 
 ### 豆包
 
-在支持文件上传或知识库的豆包 Agent 中上传整个仓库，第一条指令写：
+豆包网页对话实测不接收 ZIP。分别上传 [PROMPT.md](PROMPT.md) 和 [SKILL.md](SKILL.md)；需要严格访谈时，再上传 [references/interview-playbook.md](references/interview-playbook.md)。第一条指令写：
 
 ```text
-先读取 PROMPT.md，再按其中入口读取 SKILL.md。现在进入逐步共创模式，每轮只问一个问题。
+先读取 PROMPT.md，再读取 SKILL.md。现在进入逐步共创模式。整条回复最多出现一个问号，最后只索取一个信息点。
 ```
 
 如果豆包当前会话不能读取文件，复制 `PROMPT.md` 的 fallback 内容使用；不要要求它假装读取了仓库。
+
+网页端实测中，豆包即使加载了三份文件，首轮诊断仍可能把受众备选项写成多个反问句。遇到这种情况，直接指出“废弃上一轮多问题输出，只保留一个信息点”，再继续访谈；不要一次回答它列出的全部问题。跨平台行为记录见 [tests/smoke-test-results.md](tests/smoke-test-results.md)。
 
 ### 通用 Agent
 

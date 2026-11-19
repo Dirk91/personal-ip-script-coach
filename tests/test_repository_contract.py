@@ -139,6 +139,11 @@ class RepositoryContractTests(unittest.TestCase):
         text = path.read_text(encoding="utf-8")
         self.assertIn("每轮最多一个问题", text)
         self.assertIn("一到两句", text)
+        self.assertIn("combined total must be at most one", text)
+        self.assertIn("one answerable fact", text)
+        self.assertIn("Only the final sentence may be interrogative", text)
+        for bundler in ("还是", "或者", "比如 A、B、C"):
+            self.assertIn(bundler, text)
 
     def test_user_correction_reorders_the_interview(self) -> None:
         """Catches persistence with an interpretation the user has rejected."""
@@ -226,7 +231,14 @@ class RepositoryContractTests(unittest.TestCase):
         """Catches a pasted fallback that loses precedence, confirmations, or privacy."""
         text = (ROOT / "PROMPT.md").read_text(encoding="utf-8")
         fallback = text.split("## Concise fallback when file navigation is unavailable", 1)[1]
-        for phrase in ("current instruction", "user-supplied standard", "`1`", "avatar", "display name"):
+        for phrase in (
+            "current instruction",
+            "user-supplied standard",
+            "one answerable fact",
+            "`1`",
+            "avatar",
+            "display name",
+        ):
             self.assertIn(phrase, fallback)
 
     def test_readme_covers_supported_platforms_scope_and_privacy(self) -> None:
@@ -279,7 +291,12 @@ class RepositoryContractTests(unittest.TestCase):
             "Private screenshot",
         ):
             self.assertIn(case, text)
-        for rule in ("one question maximum", "no fabricated fact", "standard precedence", "no premature completion"):
+        for rule in (
+            "one atomic question maximum",
+            "no fabricated fact",
+            "standard precedence",
+            "no premature completion",
+        ):
             self.assertIn(rule, text)
 
     def test_release_validator_rejects_empty_markdown(self) -> None:

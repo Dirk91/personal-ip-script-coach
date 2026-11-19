@@ -6,7 +6,7 @@ These scenarios are platform-neutral acceptance tests for `personal-ip-script-co
 
 Every scenario must satisfy all four rules:
 
-1. **one question maximum** — a guided response contains at most one question;
+1. **one atomic question maximum** — the entire guided response contains at most one `?`/`？`, all diagnosis is declarative, and the final question requests only one answerable fact; alternatives such as “A、B 还是 C” fail even with one question mark;
 2. **no fabricated fact** — the Agent uses only supplied or confirmed details;
 3. **standard precedence** — current user instruction wins, then user standard, then repository default;
 4. **no premature completion** — the Agent does not label a script complete while a critical gap remains, unless the user explicitly requests a provisional draft.
@@ -30,6 +30,7 @@ Every scenario must satisfy all four rules:
 
 - The Agent invents a creator or performance result.
 - It asks for case, audience, platform, goal, and CTA together.
+- It asks “具体是谁？他做了什么、发了多少条、结果是什么？” or another compound cluster.
 - It produces a complete rewrite before gathering evidence.
 
 ## Scenario 2: User correction
@@ -50,6 +51,7 @@ Turn 2 user reply: “这不是重点。我讲的是她不知道每一步该交�
 
 - The next question continues probing fear or confidence.
 - The Agent defends its old outline.
+- It asks for the返工环节、具体动作和结果 in the same turn.
 
 ## Scenario 3: Oral story
 
