@@ -10,7 +10,25 @@ from urllib.parse import unquote
 
 IGNORED_DIRECTORIES = {".git", ".superpowers", "__pycache__"}
 TEXT_SUFFIXES = {".md", ".yaml", ".yml", ".py", ".txt"}
-REQUIRED_FILES = ("SKILL.md", "agents/openai.yaml", "ProjectMap.md")
+REQUIRED_FILES = (
+    "README.md",
+    "LICENSE",
+    "ProjectMap.md",
+    "SKILL.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "PROMPT.md",
+    "agents/openai.yaml",
+    "references/default-video-standard.md",
+    "references/interview-playbook.md",
+    "references/final-review-checklist.md",
+    "examples/complete-demo.md",
+    "scripts/validate_repo.py",
+    "tests/__init__.py",
+    "tests/test_repository_contract.py",
+    "tests/behavioral-scenarios.md",
+    "tests/smoke-test-results.md",
+)
 MARKDOWN_LINK = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
 
 
@@ -28,7 +46,7 @@ def iter_public_text_files(root: pathlib.Path):
             continue
         if IGNORED_DIRECTORIES.intersection(path.relative_to(root).parts):
             continue
-        if path.suffix.lower() in TEXT_SUFFIXES:
+        if path.suffix.lower() in TEXT_SUFFIXES or path.name == "LICENSE":
             yield path
 
 
@@ -72,6 +90,26 @@ def validate_placeholders(root: pathlib.Path) -> list[str]:
     return errors
 
 
+def validate_project_map_coverage(root: pathlib.Path) -> list[str]:
+    project_map = root / "ProjectMap.md"
+    if not project_map.is_file():
+        return ["ProjectMap.md is missing"]
+    text = project_map.read_text(encoding="utf-8")
+    return [
+        f"ProjectMap.md does not list: {relative}"
+        for relative in REQUIRED_FILES
+        if f"`{relative}`" not in text
+    ]
+
+
+def validate_empty_files(root: pathlib.Path) -> list[str]:
+    errors: list[str] = []
+    for path in iter_public_text_files(root):
+        if path.suffix.lower() == ".md" and not path.read_text(encoding="utf-8").strip():
+            errors.append(f"Empty Markdown file: {path.relative_to(root)}")
+    return errors
+
+
 def main() -> int:
     root = repository_root()
     errors: list[str] = []
@@ -80,6 +118,8 @@ def main() -> int:
         validate_relative_links,
         validate_privacy,
         validate_placeholders,
+        validate_project_map_coverage,
+        validate_empty_files,
     ):
         errors.extend(check(root))
     if errors:

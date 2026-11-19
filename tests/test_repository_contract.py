@@ -91,6 +91,8 @@ class RepositoryContractTests(unittest.TestCase):
             "validate_relative_links",
             "validate_privacy",
             "validate_placeholders",
+            "validate_project_map_coverage",
+            "validate_empty_files",
             "main",
         }
         self.assertTrue(expected.issubset(set(dir(validator))))
@@ -107,7 +109,7 @@ class RepositoryContractTests(unittest.TestCase):
         validator = load_validator()
         with tempfile.TemporaryDirectory() as directory:
             errors = validator.validate_required_files(Path(directory))
-        self.assertEqual(3, len(errors))
+        self.assertEqual(len(validator.REQUIRED_FILES), len(errors))
 
     def test_validator_cli_passes_the_repository(self) -> None:
         """Catches a CLI that disagrees with the reusable validation functions."""
@@ -231,6 +233,8 @@ class RepositoryContractTests(unittest.TestCase):
             self.assertIn(section, text)
         self.assertIn("不保证爆款", text)
         self.assertIn("personal-ip-script-coach", text)
+        self.assertIn("tests/behavioral-scenarios.md", text)
+        self.assertIn("tests/smoke-test-results.md", text)
 
     def test_license_is_standard_mit_for_pl(self) -> None:
         """Catches a release without the approved redistribution terms."""
@@ -251,6 +255,66 @@ class RepositoryContractTests(unittest.TestCase):
         self.assertGreaterEqual(len(re.findall(r"(?m)^### 第[一二三四五六七八九十]+轮", text)), 5)
         self.assertIn("本示例完全虚构", text)
         self.assertIn("每轮一个问题", text)
+
+    def test_behavior_pack_covers_all_seven_risk_scenarios(self) -> None:
+        """Catches a release that omits one of the approved behavior risks."""
+        path = ROOT / "tests" / "behavioral-scenarios.md"
+        self.assertTrue(path.is_file(), "behavioral scenarios must exist")
+        text = path.read_text(encoding="utf-8")
+        self.assertEqual(7, len(re.findall(r"(?m)^## Scenario [1-7]:", text)))
+        for case in (
+            "No case",
+            "User correction",
+            "Oral story",
+            "Transcript only",
+            "Conflicting standard",
+            "Reply `1`",
+            "Private screenshot",
+        ):
+            self.assertIn(case, text)
+        for rule in ("one question maximum", "no fabricated fact", "standard precedence", "no premature completion"):
+            self.assertIn(rule, text)
+
+    def test_release_validator_rejects_empty_markdown(self) -> None:
+        """Catches a structurally present but unusable documentation file."""
+        validator = load_validator()
+        self.assertTrue(hasattr(validator, "validate_empty_files"))
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "empty.md").write_text("  \n", encoding="utf-8")
+            errors = validator.validate_empty_files(root)
+        self.assertEqual(["Empty Markdown file: empty.md"], errors)
+
+    def test_project_map_covers_every_release_file(self) -> None:
+        """Catches new public files that become invisible to Vault navigation."""
+        validator = load_validator()
+        self.assertTrue(hasattr(validator, "validate_project_map_coverage"))
+        self.assertEqual([], validator.validate_project_map_coverage(ROOT))
+
+    def test_final_required_file_set_is_complete(self) -> None:
+        """Catches a partial release that passes with a missing adapter or evidence file."""
+        validator = load_validator()
+        expected = {
+            "README.md",
+            "LICENSE",
+            "ProjectMap.md",
+            "SKILL.md",
+            "AGENTS.md",
+            "CLAUDE.md",
+            "PROMPT.md",
+            "agents/openai.yaml",
+            "references/default-video-standard.md",
+            "references/interview-playbook.md",
+            "references/final-review-checklist.md",
+            "examples/complete-demo.md",
+            "scripts/validate_repo.py",
+            "tests/__init__.py",
+            "tests/test_repository_contract.py",
+            "tests/behavioral-scenarios.md",
+            "tests/smoke-test-results.md",
+        }
+        self.assertEqual(expected, set(validator.REQUIRED_FILES))
+        self.assertEqual([], validator.validate_required_files(ROOT))
 
 
 if __name__ == "__main__":

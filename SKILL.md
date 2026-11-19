@@ -42,7 +42,7 @@ Use when the user asks what the draft lacks. Return:
 - what is already working;
 - the important gaps;
 - their priority;
-- the single item to补 next.
+- the single item to address next.
 
 Do not silently enter an interview or produce a complete rewrite.
 

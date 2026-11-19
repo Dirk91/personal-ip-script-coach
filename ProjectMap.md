@@ -6,6 +6,7 @@
 
 | 文件 | 说明 |
 |---|---|
+| `ProjectMap.md` | 仓库全部公开发布文件的导航。 |
 | `SKILL.md` | 核心 Skill 入口与三种工作模式。 |
 | `README.md` | 项目说明、平台安装、快速开始、隐私与贡献指南。 |
 | `LICENSE` | MIT 开源协议。 |
@@ -19,3 +20,6 @@
 | `references/final-review-checklist.md` | 完整稿的事实、语感、隐私、CTA 与就绪状态检查。 |
 | `scripts/validate_repo.py` | 仓库结构、链接、隐私和占位符校验器。 |
 | `tests/test_repository_contract.py` | 可重复运行的仓库契约测试。 |
+| `tests/__init__.py` | Python 测试包标记。 |
+| `tests/behavioral-scenarios.md` | 七个跨平台行为验收场景及共用通过规则。 |
+| `tests/smoke-test-results.md` | 四个入口对同一场景的冒烟测试记录。 |

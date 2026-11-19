@@ -39,7 +39,10 @@ personal-ip-script-coach/
 │   └── final-review-checklist.md
 ├── examples/complete-demo.md
 ├── scripts/validate_repo.py
-└── tests/test_repository_contract.py
+└── tests/
+    ├── test_repository_contract.py
+    ├── behavioral-scenarios.md
+    └── smoke-test-results.md
 ```
 
 `SKILL.md` 是唯一核心规则源。其他平台入口只负责把 Agent 引回核心文件，避免不同平台各自演化出一套流程。
@@ -119,6 +122,8 @@ python3 scripts/validate_repo.py
 ```
 
 第二条命令通过时会输出 `Repository validation passed.`。
+
+人工行为验收见 [tests/behavioral-scenarios.md](tests/behavioral-scenarios.md)，四入口烟测记录见 [tests/smoke-test-results.md](tests/smoke-test-results.md)。
 
 ## 隐私
 
