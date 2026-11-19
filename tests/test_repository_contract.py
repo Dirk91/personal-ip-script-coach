@@ -163,6 +163,35 @@ class RepositoryContractTests(unittest.TestCase):
         self.assertIn("零散素材", text)
         self.assertIn("从素材建立初稿", text)
 
+    def test_default_standard_defers_to_user_supplied_rules(self) -> None:
+        """Catches fallback guidance overriding the creator's own standard."""
+        path = ROOT / "references" / "default-video-standard.md"
+        self.assertTrue(path.is_file(), "default video standard must exist")
+        text = path.read_text(encoding="utf-8")
+        self.assertIn("用户当前指令 > 用户提供的标准 > 本默认标准", text)
+        self.assertIn("只补充未覆盖部分", text)
+
+    def test_default_standard_covers_audience_goal_and_visible_evidence(self) -> None:
+        """Catches a standard that optimizes form without relevance or proof."""
+        path = ROOT / "references" / "default-video-standard.md"
+        self.assertTrue(path.is_file(), "default video standard must exist")
+        text = path.read_text(encoding="utf-8")
+        for question in ("这件事跟我有关吗？", "我能马上听懂吗？", "我看完能拿走什么？"):
+            self.assertIn(question, text)
+        self.assertIn("一个主要目标", text)
+        self.assertIn("可见证据", text)
+
+    def test_final_review_gates_truth_voice_privacy_and_call_to_action(self) -> None:
+        """Catches synthesis that is publishable in form but unsafe or untrue."""
+        path = ROOT / "references" / "final-review-checklist.md"
+        self.assertTrue(path.is_file(), "final review checklist must exist")
+        text = path.read_text(encoding="utf-8")
+        for check in ("事实", "原话与语感", "隐私", "CTA"):
+            self.assertIn(check, text)
+        for status in ("`ready`", "`ready with noted gaps`", "`not ready—continue interview`"):
+            self.assertIn(status, text)
+        self.assertIn("只能返回一个", text)
+
 
 if __name__ == "__main__":
     unittest.main()
