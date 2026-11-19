@@ -123,6 +123,46 @@ class RepositoryContractTests(unittest.TestCase):
         self.assertEqual(0, completed.returncode, completed.stdout + completed.stderr)
         self.assertEqual("Repository validation passed.", completed.stdout.strip())
 
+    def test_skill_routes_all_three_user_modes(self) -> None:
+        """Catches an entrypoint that silently drops one supported mode."""
+        text = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        for mode in ("只诊断", "逐步共创", "生成完整版"):
+            self.assertIn(mode, text)
+        self.assertIn("先诊断", text)
+
+    def test_interview_contract_allows_only_one_question_per_turn(self) -> None:
+        """Catches a playbook that degrades into a multi-question form."""
+        path = ROOT / "references" / "interview-playbook.md"
+        self.assertTrue(path.is_file(), "interview playbook must exist")
+        text = path.read_text(encoding="utf-8")
+        self.assertIn("每轮最多一个问题", text)
+        self.assertIn("一到两句", text)
+
+    def test_user_correction_reorders_the_interview(self) -> None:
+        """Catches persistence with an interpretation the user has rejected."""
+        text = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("用户纠正", text)
+        self.assertIn("立即废弃", text)
+        self.assertIn("重新排序", text)
+
+    def test_short_confirmation_advances_to_the_next_step(self) -> None:
+        """Catches treating a short confirmation as missing information."""
+        path = ROOT / "references" / "interview-playbook.md"
+        self.assertTrue(path.is_file(), "interview playbook must exist")
+        text = path.read_text(encoding="utf-8")
+        for token in ("`1`", "`继续`", "`可以`"):
+            self.assertIn(token, text)
+        self.assertIn("进入下一步", text)
+
+    def test_transcripts_and_fragments_enter_material_first_mode(self) -> None:
+        """Catches rejection of useful input merely because no draft exists."""
+        path = ROOT / "references" / "interview-playbook.md"
+        self.assertTrue(path.is_file(), "interview playbook must exist")
+        text = path.read_text(encoding="utf-8")
+        self.assertIn("语音逐字稿", text)
+        self.assertIn("零散素材", text)
+        self.assertIn("从素材建立初稿", text)
+
 
 if __name__ == "__main__":
     unittest.main()
