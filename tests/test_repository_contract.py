@@ -264,6 +264,24 @@ class RepositoryContractTests(unittest.TestCase):
         self.assertIn("Copyright (c) 2026 PL", text)
         self.assertIn("THE SOFTWARE IS PROVIDED \"AS IS\"", text)
 
+    def test_legal_docs_keep_open_source_and_private_materials_separate(self) -> None:
+        """Catches a notice that contradicts MIT or pretends private terms bind automatically."""
+        notice = (ROOT / "NOTICE.md").read_text(encoding="utf-8")
+        policy = (ROOT / "docs" / "CONTENT_POLICY.zh-CN.md").read_text(encoding="utf-8")
+        template = (ROOT / "docs" / "CONFIDENTIALITY_TEMPLATE.zh-CN.md").read_text(encoding="utf-8")
+        disclaimer = (ROOT / "docs" / "DISCLAIMER.zh-CN.md").read_text(encoding="utf-8")
+        guide = (ROOT / "docs" / "USER_GUIDE.zh-CN.md").read_text(encoding="utf-8")
+
+        for text in (notice, policy, template):
+            self.assertIn("MIT License", text)
+        self.assertIn("不适用于本仓库已经公开", notice)
+        self.assertIn("不能一边使用 MIT License", policy)
+        self.assertIn("不会因为被放进仓库而自动生效", template)
+        self.assertIn("不保证", disclaimer)
+        self.assertIn("人工核验", disclaimer)
+        self.assertIn("三种工作模式", guide)
+        self.assertIn("不得排除或限制", disclaimer)
+
     def test_demo_shows_the_complete_coaching_arc(self) -> None:
         """Catches a demo that skips the adaptive behavior users need to assess."""
         path = ROOT / "examples" / "complete-demo.md"
@@ -321,12 +339,17 @@ class RepositoryContractTests(unittest.TestCase):
         expected = {
             "README.md",
             "LICENSE",
+            "NOTICE.md",
             "ProjectMap.md",
             "SKILL.md",
             "AGENTS.md",
             "CLAUDE.md",
             "PROMPT.md",
             "agents/openai.yaml",
+            "docs/USER_GUIDE.zh-CN.md",
+            "docs/DISCLAIMER.zh-CN.md",
+            "docs/CONTENT_POLICY.zh-CN.md",
+            "docs/CONFIDENTIALITY_TEMPLATE.zh-CN.md",
             "references/default-video-standard.md",
             "references/interview-playbook.md",
             "references/final-review-checklist.md",

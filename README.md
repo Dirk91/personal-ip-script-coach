@@ -6,6 +6,16 @@
 
 它不是固定文案模板，也不保证爆款。它解决的是更基础的问题：让不同 Agent 都能用同一套方法，少编、少美化，多追问真实素材。
 
+## 开始前必读
+
+- [重要说明](NOTICE.md)：开源层、用户素材和非公开商业材料的授权边界；
+- [完整使用说明](docs/USER_GUIDE.zh-CN.md)：安装、模式、提示词、故障处理和发布前检查；
+- [用户须知与免责声明](docs/DISCLAIMER.zh-CN.md)：AI、平台、隐私、版权和结果风险；
+- [版权、转载与传播规则](docs/CONTENT_POLICY.zh-CN.md)：MIT 仓库允许什么，用户私密材料保护什么；
+- [非公开材料保密与禁止转录约定模板](docs/CONFIDENTIALITY_TEMPLATE.zh-CN.md)：用于课程、社群、咨询或企业内部交付，不限制已公开的 MIT 仓库。
+
+> **授权边界：** 本仓库是 MIT 开源项目，因此不能禁止他人依法转发或修改公开文件。禁止转发、录屏、转录和导入知识库的要求，只能针对另行交付的非公开材料，通过单独、明确的约定建立。
+
 ## 能做什么
 
 - 诊断已有口播稿的优势、缺口和补充顺序；
@@ -32,7 +42,13 @@ personal-ip-script-coach/
 ├── AGENTS.md
 ├── CLAUDE.md
 ├── PROMPT.md
+├── NOTICE.md
 ├── agents/openai.yaml
+├── docs/
+│   ├── USER_GUIDE.zh-CN.md
+│   ├── DISCLAIMER.zh-CN.md
+│   ├── CONTENT_POLICY.zh-CN.md
+│   └── CONFIDENTIALITY_TEMPLATE.zh-CN.md
 ├── references/
 │   ├── default-video-standard.md
 │   ├── interview-playbook.md
@@ -148,4 +164,4 @@ python3 scripts/validate_repo.py
 
 ## License
 
-[MIT](LICENSE)
+公开仓库文件适用 [MIT License](LICENSE)，可以在保留版权和许可声明的前提下使用、复制、修改与分发。用户输入、第三方材料和另行交付的非公开内容不因使用本项目而自动获得 MIT 授权。详细边界见 [NOTICE.md](NOTICE.md) 与 [版权、转载与传播规则](docs/CONTENT_POLICY.zh-CN.md)。

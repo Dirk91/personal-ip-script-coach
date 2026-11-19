@@ -10,6 +10,11 @@
 | `SKILL.md` | 核心 Skill 入口与三种工作模式。 |
 | `README.md` | 项目说明、平台安装、快速开始、隐私与贡献指南。 |
 | `LICENSE` | MIT 开源协议。 |
+| `NOTICE.md` | 公开仓库、用户素材、非公开商业材料和免责边界总说明。 |
+| `docs/USER_GUIDE.zh-CN.md` | 完整中文使用说明，覆盖安装、三种模式、提示词、故障处理与发布检查。 |
+| `docs/DISCLAIMER.zh-CN.md` | AI 输出、效果、隐私、版权、第三方平台与责任边界说明。 |
+| `docs/CONTENT_POLICY.zh-CN.md` | MIT 开源文件、用户输入、第三方素材和非公开材料的传播规则。 |
+| `docs/CONFIDENTIALITY_TEMPLATE.zh-CN.md` | 面向课程、社群、咨询和内部资料的保密与禁止转录独立约定模板。 |
 | `examples/complete-demo.md` | 完全虚构的诊断、六轮访谈、纠正、临时版与终稿示例。 |
 | `AGENTS.md` | Codex 等仓库级 Agent 的薄入口。 |
 | `CLAUDE.md` | Claude Code 的薄入口。 |
