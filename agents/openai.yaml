@@ -2,3 +2,5 @@ interface:
   display_name: "个人 IP 爆款脚本引导挖掘"
   short_description: "通过诊断与一次一问，把真实素材整理成个人 IP 口播稿"
   default_prompt: "使用 $personal-ip-script-coach 诊断并引导我完善这篇口播稿。"
+policy:
+  allow_implicit_invocation: true

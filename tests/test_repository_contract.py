@@ -192,6 +192,34 @@ class RepositoryContractTests(unittest.TestCase):
             self.assertIn(status, text)
         self.assertIn("只能返回一个", text)
 
+    def test_every_adapter_routes_to_the_canonical_skill(self) -> None:
+        """Catches an adapter that forks or bypasses the canonical workflow."""
+        for filename in ("AGENTS.md", "CLAUDE.md", "PROMPT.md"):
+            with self.subTest(adapter=filename):
+                path = ROOT / filename
+                self.assertTrue(path.is_file(), f"{filename} must exist")
+                text = path.read_text(encoding="utf-8")
+                self.assertIn("[SKILL.md](SKILL.md)", text)
+                non_empty = [line for line in text.splitlines() if line.strip()]
+                self.assertLessEqual(len(non_empty), 120, "adapter duplicates too much workflow")
+
+    def test_adapter_markdown_references_exist(self) -> None:
+        """Catches a platform entrypoint that sends an Agent to a missing file."""
+        for filename in ("AGENTS.md", "CLAUDE.md", "PROMPT.md"):
+            path = ROOT / filename
+            self.assertTrue(path.is_file(), f"{filename} must exist")
+            for target in MARKDOWN_LINK.findall(path.read_text(encoding="utf-8")):
+                relative = target.split("#", 1)[0]
+                self.assertTrue((ROOT / relative).is_file(), f"{filename} -> {relative}")
+
+    def test_openai_metadata_is_quoted_and_invokes_the_skill(self) -> None:
+        """Catches malformed UI metadata or a prompt that omits explicit invocation."""
+        text = (ROOT / "agents" / "openai.yaml").read_text(encoding="utf-8")
+        self.assertRegex(text, r'(?m)^\s*display_name:\s*"个人 IP 爆款脚本引导挖掘"\s*$')
+        self.assertRegex(text, r'(?m)^\s*short_description:\s*"[^"]+"\s*$')
+        self.assertRegex(text, r'(?m)^\s*default_prompt:\s*"[^\n]*\$personal-ip-script-coach[^\n]*"\s*$')
+        self.assertRegex(text, r"(?m)^\s*allow_implicit_invocation:\s*true\s*$")
+
 
 if __name__ == "__main__":
     unittest.main()
