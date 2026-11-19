@@ -222,6 +222,13 @@ class RepositoryContractTests(unittest.TestCase):
         self.assertRegex(text, r'(?m)^\s*default_prompt:\s*"[^\n]*\$personal-ip-script-coach[^\n]*"\s*$')
         self.assertRegex(text, r"(?m)^\s*allow_implicit_invocation:\s*true\s*$")
 
+    def test_prompt_fallback_preserves_critical_rules_without_file_access(self) -> None:
+        """Catches a pasted fallback that loses precedence, confirmations, or privacy."""
+        text = (ROOT / "PROMPT.md").read_text(encoding="utf-8")
+        fallback = text.split("## Concise fallback when file navigation is unavailable", 1)[1]
+        for phrase in ("current instruction", "user-supplied standard", "`1`", "avatar", "display name"):
+            self.assertIn(phrase, fallback)
+
     def test_readme_covers_supported_platforms_scope_and_privacy(self) -> None:
         """Catches a public guide that cannot be installed or overclaims results."""
         path = ROOT / "README.md"
