@@ -7,6 +7,9 @@
 | 文件 | 说明 |
 |---|---|
 | `SKILL.md` | 核心 Skill 入口与三种工作模式。 |
+| `README.md` | 项目说明、平台安装、快速开始、隐私与贡献指南。 |
+| `LICENSE` | MIT 开源协议。 |
+| `examples/complete-demo.md` | 完全虚构的诊断、六轮访谈、纠正、临时版与终稿示例。 |
 | `AGENTS.md` | Codex 等仓库级 Agent 的薄入口。 |
 | `CLAUDE.md` | Claude Code 的薄入口。 |
 | `PROMPT.md` | WorkBuddy、豆包和普通文件型 Agent 的通用入口。 |

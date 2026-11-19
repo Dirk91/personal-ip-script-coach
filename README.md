@@ -1,0 +1,144 @@
+# personal-ip-script-coach
+
+**中文名称：个人 IP 爆款脚本引导挖掘 Skill**
+
+一个面向个人 IP 口播稿的开源 Agent 工作流：先诊断稿子缺什么，再用“一次只问一个问题”的访谈，把创作者脑中的真实经历、案例、判断和原话挖出来，最后整理成仍然像本人说话的完整脚本。
+
+它不是固定文案模板，也不保证爆款。它解决的是更基础的问题：让不同 Agent 都能用同一套方法，少编、少美化，多追问真实素材。
+
+## 能做什么
+
+- 诊断已有口播稿的优势、缺口和补充顺序；
+- 从选题、语音逐字稿或零散素材建立初稿；
+- 通过逐轮访谈补案例、个人证据、机制和行动路径；
+- 保留创作者的高辨识度原话与口语节奏；
+- 在素材足够时生成完整稿，并检查事实、隐私和 CTA。
+
+## 能力边界
+
+首版不负责自动发布、平台抓取、视频剪辑或账号数据复盘；不虚构经历、结果、数字和对话；不替任何内容作传播效果保证。**不保证爆款**，只提高脚本的相关性、证据密度、个人表达和可执行性。
+
+## 三种模式
+
+1. **只诊断**：告诉你已经有什么、还缺什么、先补哪一项。
+2. **逐步共创**：先诊断，再每轮只问一个问题，让你自己说出素材。
+3. **生成完整版**：素材齐备后成稿；若你要求提前出稿，会明确标成临时版并列出缺口。
+
+## 仓库结构
+
+```text
+personal-ip-script-coach/
+├── SKILL.md
+├── AGENTS.md
+├── CLAUDE.md
+├── PROMPT.md
+├── agents/openai.yaml
+├── references/
+│   ├── default-video-standard.md
+│   ├── interview-playbook.md
+│   └── final-review-checklist.md
+├── examples/complete-demo.md
+├── scripts/validate_repo.py
+└── tests/test_repository_contract.py
+```
+
+`SKILL.md` 是唯一核心规则源。其他平台入口只负责把 Agent 引回核心文件，避免不同平台各自演化出一套流程。
+
+## 快速开始
+
+把仓库克隆或下载到本地：
+
+```bash
+git clone <repository-url> personal-ip-script-coach
+cd personal-ip-script-coach
+```
+
+然后按平台选择入口。
+
+### Codex
+
+把整个 `personal-ip-script-coach` 目录复制或链接到 Codex 可读取的 Skills 目录，或直接在仓库中工作。调用示例：
+
+```text
+使用 $personal-ip-script-coach。先只诊断这篇口播稿缺什么，不要直接改写。
+```
+
+Codex 会从 [SKILL.md](SKILL.md) 和 [OpenAI 元数据](agents/openai.yaml) 进入核心流程。
+
+### Claude Code
+
+用 Claude Code 打开仓库。根目录的 [CLAUDE.md](CLAUDE.md) 会引导它读取 [SKILL.md](SKILL.md) 和当前阶段需要的 reference。
+
+```text
+请按仓库里的 personal-ip-script-coach 工作流，一次问我一个问题，把这组零散素材补成口播稿。
+```
+
+### WorkBuddy
+
+把整个仓库作为文件夹或压缩包上传到 WorkBuddy，并要求它先读取 [PROMPT.md](PROMPT.md)。如果当前版本不能跟随文件链接，复制 `PROMPT.md` 的“Concise fallback”段落到对话中，再粘贴你的稿件或素材。
+
+### 豆包
+
+在支持文件上传或知识库的豆包 Agent 中上传整个仓库，第一条指令写：
+
+```text
+先读取 PROMPT.md，再按其中入口读取 SKILL.md。现在进入逐步共创模式，每轮只问一个问题。
+```
+
+如果豆包当前会话不能读取文件，复制 `PROMPT.md` 的 fallback 内容使用；不要要求它假装读取了仓库。
+
+### 通用 Agent
+
+任何能读取本地文件、项目仓库或上传附件的通用 Agent，都可以先读 [PROMPT.md](PROMPT.md)，再转入 [SKILL.md](SKILL.md)。完全不支持文件读取的平台，只能复制 `PROMPT.md` 的简版规则和待处理素材。
+
+## 推荐输入
+
+最少提供以下任意一种：
+
+- 一篇已有口播稿；
+- 一个选题和若干零散素材；
+- 一份语音逐字稿。
+
+还可以提供自己的视频标准、历史脚本、匿名后的评论/私信、真实案例、目标平台、时长和内容目标。当前任务指令和用户标准永远高于仓库默认标准。
+
+## 使用示例
+
+```text
+这是我的稿子和视频标准。先只诊断，不要重写；然后我说“继续”时，进入逐步共创，一次只问我一个问题。
+```
+
+完整的虚构演示见 [examples/complete-demo.md](examples/complete-demo.md)。
+
+## 验证
+
+仓库核心校验只依赖 Python 3 标准库：
+
+```bash
+python3 -m unittest tests.test_repository_contract -v
+python3 scripts/validate_repo.py
+```
+
+第二条命令通过时会输出 `Repository validation passed.`。
+
+## 隐私
+
+- 公开前隐藏截图中的头像、昵称、账号、联系方式和无关元数据；
+- 不把私人会话、真实粉丝身份、会话 ID、本地绝对路径或临时附件路径提交到仓库；
+- 不确定的事实应标为待核实；
+- 示例和测试使用虚构或匿名材料；
+- 没有文件能力的平台不应声称已经保存内容。
+
+## 贡献
+
+欢迎提交 issue 或 pull request，尤其是：
+
+- 不同 Agent 平台的实际加载结果；
+- 能暴露“一次一问”失效、标准优先级错误或虚构事实的行为场景；
+- 更清晰但不复制核心流程的平台入口；
+- 隐私与安全输出方面的改进。
+
+修改核心行为时，请同步更新测试和相关 reference，并确保平台入口仍然回到 `SKILL.md`。
+
+## License
+
+[MIT](LICENSE)

@@ -220,6 +220,38 @@ class RepositoryContractTests(unittest.TestCase):
         self.assertRegex(text, r'(?m)^\s*default_prompt:\s*"[^\n]*\$personal-ip-script-coach[^\n]*"\s*$')
         self.assertRegex(text, r"(?m)^\s*allow_implicit_invocation:\s*true\s*$")
 
+    def test_readme_covers_supported_platforms_scope_and_privacy(self) -> None:
+        """Catches a public guide that cannot be installed or overclaims results."""
+        path = ROOT / "README.md"
+        self.assertTrue(path.is_file(), "README.md must exist")
+        text = path.read_text(encoding="utf-8")
+        for platform in ("Codex", "Claude Code", "WorkBuddy", "豆包", "通用 Agent"):
+            self.assertIn(platform, text)
+        for section in ("三种模式", "快速开始", "隐私", "贡献"):
+            self.assertIn(section, text)
+        self.assertIn("不保证爆款", text)
+        self.assertIn("personal-ip-script-coach", text)
+
+    def test_license_is_standard_mit_for_pl(self) -> None:
+        """Catches a release without the approved redistribution terms."""
+        path = ROOT / "LICENSE"
+        self.assertTrue(path.is_file(), "LICENSE must exist")
+        text = path.read_text(encoding="utf-8")
+        self.assertTrue(text.startswith("MIT License\n"))
+        self.assertIn("Copyright (c) 2026 PL", text)
+        self.assertIn("THE SOFTWARE IS PROVIDED \"AS IS\"", text)
+
+    def test_demo_shows_the_complete_coaching_arc(self) -> None:
+        """Catches a demo that skips the adaptive behavior users need to assess."""
+        path = ROOT / "examples" / "complete-demo.md"
+        self.assertTrue(path.is_file(), "complete demo must exist")
+        text = path.read_text(encoding="utf-8")
+        for stage in ("弱稿", "诊断", "用户纠正", "临时版", "就绪检查", "最终口播稿"):
+            self.assertIn(stage, text)
+        self.assertGreaterEqual(len(re.findall(r"(?m)^### 第[一二三四五六七八九十]+轮", text)), 5)
+        self.assertIn("本示例完全虚构", text)
+        self.assertIn("每轮一个问题", text)
+
 
 if __name__ == "__main__":
     unittest.main()
