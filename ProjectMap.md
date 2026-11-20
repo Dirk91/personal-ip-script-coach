@@ -9,6 +9,10 @@
 | `ProjectMap.md` | 仓库全部公开发布文件的导航。 |
 | `SKILL.md` | 核心 Skill 入口与三种工作模式。 |
 | `README.md` | 项目说明、平台安装、快速开始、隐私与贡献指南。 |
+| `VERSION` | 当前公开发布版本号。 |
+| `CHANGELOG.md` | 版本更新与发布记录。 |
+| `CONTRIBUTING.md` | Issue 与 Pull Request 的提交边界及校验要求。 |
+| `.gitignore` | 本地缓存、环境文件和未审查用户素材的忽略规则。 |
 | `LICENSE` | MIT 开源协议。 |
 | `NOTICE.md` | 公开仓库、用户素材、非公开商业材料和免责边界总说明。 |
 | `docs/USER_GUIDE.zh-CN.md` | 完整中文使用说明，覆盖安装、三种模式、提示词、故障处理与发布检查。 |

@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+
+# macOS / editors
+.DS_Store
+.idea/
+.vscode/
+
+# Local environment and generated material
+.env
+.env.*
+*.log
+tmp/
+dist/
+build/
+
+# User-supplied source material — never commit without an explicit review
+private/
+uploads/
+*.zip
