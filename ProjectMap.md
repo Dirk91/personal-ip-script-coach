@@ -20,6 +20,7 @@
 | `docs/CONTENT_POLICY.zh-CN.md` | MIT 开源文件、用户输入、第三方素材和非公开材料的传播规则。 |
 | `docs/CONFIDENTIALITY_TEMPLATE.zh-CN.md` | 面向课程、社群、咨询和内部资料的保密与禁止转录独立约定模板。 |
 | `docs/PAID_COMMUNITY.zh-CN.md` | 付费社群与作者联系入口，说明非公开交付的边界。 |
+| `docs/paid-community-qrcode.jpg` | 作者微信联系二维码，用于 README 与社群说明页展示。 |
 | `examples/complete-demo.md` | 完全虚构的诊断、六轮访谈、纠正、临时版与终稿示例。 |
 | `AGENTS.md` | Codex 等仓库级 Agent 的薄入口。 |
 | `CLAUDE.md` | Claude Code 的薄入口。 |
