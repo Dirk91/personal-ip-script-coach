@@ -2,7 +2,7 @@
 
 **中文名称：个人 IP 爆款脚本引导挖掘 Skill**
 
-> **版本：** [v0.1.3](CHANGELOG.md)<br>
+> **版本：** [v0.1.4](CHANGELOG.md)<br>
 > **最近提交：** `ebeb2a1`<br>
 > **自动校验：** 28 项测试通过 · 仓库结构校验通过<br>
 > **开源协议：** [MIT License](LICENSE)
@@ -182,6 +182,12 @@ python3 scripts/validate_repo.py
 - 示例和测试使用虚构或匿名材料；
 - 没有文件能力的平台不应声称已经保存内容。
 
+## 付费社群 / 找到我
+
+想交流个人 IP 内容表达、脚本共创、Skill 使用或后续更新，可添加微信：**`AIbreakthrough`**。
+
+添加时请备注「GitHub + 个人 IP 脚本」，并简单说明你当前的内容方向或想解决的问题。社群和相关服务的具体形式、价格、名额与交付范围以当期沟通为准；详情见 [付费社群与联系作者](docs/PAID_COMMUNITY.zh-CN.md)。
+
 ## 贡献
 
 欢迎提交 issue 或 pull request，尤其是：
@@ -197,7 +203,7 @@ python3 scripts/validate_repo.py
 
 ## 版本与发布
 
-当前版本为 **v0.1.3**。每次对外发布都会更新 [VERSION](VERSION) 与 [更新记录](CHANGELOG.md)，并执行两条本地校验命令。详细改动见 [CHANGELOG.md](CHANGELOG.md)。
+当前版本为 **v0.1.4**。每次对外发布都会更新 [VERSION](VERSION) 与 [更新记录](CHANGELOG.md)，并执行两条本地校验命令。详细改动见 [CHANGELOG.md](CHANGELOG.md)。
 
 ## License
 
