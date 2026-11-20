@@ -2,7 +2,7 @@
 
 **中文名称：个人 IP 爆款脚本引导挖掘 Skill**
 
-> **版本：** [v0.1.2](CHANGELOG.md)<br>
+> **版本：** [v0.1.3](CHANGELOG.md)<br>
 > **最近提交：** `ebeb2a1`<br>
 > **自动校验：** 28 项测试通过 · 仓库结构校验通过<br>
 > **开源协议：** [MIT License](LICENSE)
@@ -197,7 +197,7 @@ python3 scripts/validate_repo.py
 
 ## 版本与发布
 
-当前版本为 **v0.1.2**。每次对外发布都会更新 [VERSION](VERSION) 与 [更新记录](CHANGELOG.md)，并执行两条本地校验命令。详细改动见 [CHANGELOG.md](CHANGELOG.md)。
+当前版本为 **v0.1.3**。每次对外发布都会更新 [VERSION](VERSION) 与 [更新记录](CHANGELOG.md)，并执行两条本地校验命令。详细改动见 [CHANGELOG.md](CHANGELOG.md)。
 
 ## License
 
